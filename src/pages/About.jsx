@@ -1,8 +1,9 @@
 import React from "react";
+import './About.css'
 
 const About = () => {
     return (
-        <div>
+        <div className="container">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium aut eaque suscipit repellendus laborum architecto magni rem minima. In expedita sed optio iure dignissimos velit doloribus. Ut error impedit deleniti!
             Illum odio libero a consequuntur, tempore sapiente distinctio veniam, fuga recusandae, vero dignissimos? Assumenda adipisci tempora voluptatem quos eum id molestiae corporis quis, provident natus voluptate voluptates ad inventore sit!
             Officiis quidem necessitatibus iure vitae minima nisi adipisci iste ad nam? Cumque quia voluptatibus esse, sed magni voluptate laudantium odio porro eaque, pariatur sint ullam animi? Sequi totam sint exercitationem?

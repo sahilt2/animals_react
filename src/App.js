@@ -1,14 +1,15 @@
 import React,{Component} from 'react';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import './App.css';
-import Animal from './pages/Animal';
-import Bird from './pages/Bird';
+/* import Animal from './pages/Animal';
+import Bird from './pages/Bird'; */
 import {animals} from './animalsList';
 import {birds} from "./animalsList";
 import Header from './components/Header';
 import Home from './pages/Home';
 import About from './pages/About';
 import Footer from './components/Footer';
+import List from './pages/List';
 
 
 
@@ -22,43 +23,36 @@ class App extends Component {
     searchInput: ''
   };
 
-  getFromStorage = () =>{
-    const animalData = localStorage.getItem("animals");
-   const birdData = localStorage.getItem("birds")
-  this.setState({
-      animals : animalData,
-      birds : birdData
-  })
-}
+
   
-  likesHandler = (name,action) => {
+  likesHandler = (name,action,list) => {
     this.setState(((prevState) =>{
-      const updateArray = prevState.animals.map((animal) => {
-        if(animal.name === name){
+      const updateArray = prevState[list].map((item) => {
+        if(item.name === name){
           if(action==='add'){
-            return {...animal,likes:animal.likes + 1}  //spreading, curly bracket here shows we are working with obejcts
+            return {...item,likes:item.likes + 1}  //spreading, curly bracket here shows we are working with obejcts
 
           }else{
-            return {...animal,likes:animal.likes - 1} 
+            return {...item,likes:item.likes - 1} 
           }
         } else {
-          return animal
+          return item;
         }
 
       })
 
-      localStorage.setItem("animals", JSON.stringify(updateArray))
+      localStorage.setItem("lists", JSON.stringify(updateArray))
       return {
-        animals:updateArray
+        [list]:updateArray
       }
    
     
     }))
 
-   console.log('like handler clicked',name,action)
+   /* console.log('like handler clicked',name,action) */
   };
 
-  likesHandlerBirds = (name,action) => {
+/*   likesHandlerBirds = (name,action) => {
     this.setState((prevState)=>{
       const updatedBirdArray = prevState.birds.map((bird)=>{
         if(bird.name === name){
@@ -76,21 +70,21 @@ class App extends Component {
         birds:updatedBirdArray
       }
     })
-  }
-  removeHandler = (name) =>{
-   const updateArray = this.state.animals.filter((animal)=> animal.name !==name)
+  } */
+  removeHandler = (name,remove) =>{
+   const updateArray = this.state[remove].filter((animal)=> animal.name !==name)
    this.setState({
-    animals:updateArray
+    [remove]:updateArray
    })
-    console.log('remove card',name)
+    /* console.log('remove card',name) */
   }
 
-  removeHandlerBirds = (name) =>{
+/*   removeHandlerBirds = (name) =>{
     const updatedBirdArray = this.state.birds.filter((bird)=> bird.name!==name)
     this.setState({
       birds:updatedBirdArray
     })
-  }
+  } */
 
   searchHandler = (e) =>{
     this.setState({
@@ -98,9 +92,14 @@ class App extends Component {
     })
 
   }
-  handleStorage = () => {
-
-  }
+  getFromStorage = () =>{
+    const animalData = JSON.parse(localStorage.getItem("lists"));
+ /*   const birdData = JSON.parse(localStorage.getItem("birds")); */
+  this.setState({
+      animals : animalData,
+      birds : animalData
+  })
+}
   
   render() {
     
@@ -114,8 +113,10 @@ class App extends Component {
       <Header title = {this.state.title} animalData = {this.state.animals} birdsData = {this.state.birds}/>
      <Routes>
         <Route path='/' element = {<Home/>}/>
-        <Route path='/animal' element = { <Animal data = {this.state.animals} likesHandler = {this.likesHandler} removeHandler = {this.removeHandler} searchHandler ={this.searchHandler} searchInput ={this.state.searchInput}/>}/>
-        <Route path='/bird' element = { <Bird data = {this.state.birds} likesHandler = {this.likesHandlerBirds} removeHandler = {this.removeHandlerBirds} searchHandler ={this.searchHandler} searchInput ={this.state.searchInput} />}/>
+        <Route path='/animal' element = { <List title = "animals"
+        data = {this.state.animals} likesHandler = {this.likesHandler} removeHandler = {this.removeHandler} searchHandler ={this.searchHandler} searchInput ={this.state.searchInput}/>}/>
+        <Route path='/bird' element = { <List title = "birds" 
+        data = {this.state.birds} likesHandler = {this.likesHandler} removeHandler = {this.removeHandler} searchHandler ={this.searchHandler} searchInput ={this.state.searchInput} />}/>
         <Route path='/about' element = {<About/>}/>
       </Routes>
       <Footer/>

@@ -7,5 +7,9 @@ img {
   display: flex;
   margin: 1rem;
   justify-content: center;
-  height: 100vh;
+  height: calc(100vh - 130px);
+}
+
+.homepage div {
+  border: solid white 1px;
 }
