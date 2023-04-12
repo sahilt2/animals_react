@@ -9,7 +9,7 @@ const Card = (props) => {
           <img src = {`https://source.unsplash.com/500x400/?${props.name}`} alt={props.name}/>
           <p>{props.name}</p>
           <div className='remove'>
-            <button onClick={props.removeCard}>X</button>
+            <button onClick={props.removeCard}>x</button>
           </div>
           <div className='btn'>
           <button onClick={props.addLikes}>👍🏻</button>

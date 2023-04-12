@@ -1,8 +1,9 @@
 import React from "react";
 
-import Card from './Card';
+import Card from '../UI/Card';
 import './Animal.css';
-import Search from './Search'
+import Search from '../components/Search';
+import Add from "../components/Add";
 
 
 
@@ -14,8 +15,9 @@ const searchFilter = props.data.filter(animal =>{
         <div >
         <h2>Animals: {props.data.length}</h2>
         <Search searchHandler={props.searchHandler} searchInput = {props.searchInput}/>
+        <Add/>
         <div className="cards">
-        {props.data.map((item)=> <Card 
+        {searchFilter.map((item)=> <Card 
         key = {item.name} 
         name = {item.name} 
         likes = {item.likes} 
@@ -23,8 +25,6 @@ const searchFilter = props.data.filter(animal =>{
         addLikes = {()=>props.likesHandler(item.name,'add')} 
         removeLikes = {()=>props.likesHandler(item.name,'remove')}/>)}
         </div>
-        
-            
         </div>
     )
    
